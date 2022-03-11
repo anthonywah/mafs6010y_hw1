@@ -153,18 +153,19 @@ def figure_base_case():
 
 
 def figure_alter_epsilon():
-    params_list = [0.01, 0.05, 0.1, 0.2, 0.5]
+    params_list = [0.0001, 0.01, 0.1, 0.2, 0.5]
     bandits = [StockSelectBandit(input_epsilon=i, input_step_size=0.1, input_verbose=False)
                for i in params_list]
     rewards, total_rewards = simulate_bandits(input_bandits=bandits, input_sim_count=1000)
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(20, 16))
     for i in range(len(params_list)):
-        axs[0].plot(rewards[i], color=COLORS_LIST[i])
-        axs[0].set_title(f'Mean Reward [epsilon={params_list[i]}]- 1000 Sim', fontsize=28)
-        axs[1].plot(total_rewards[i], color=COLORS_LIST[i])
-        axs[1].set_title(f'Total Reward [epsilon={params_list[i]}] - 1000 Sim', fontsize=28)
+        axs[0].plot(rewards[i], color=COLORS_LIST[i], label=f'epsilon={params_list[i]}')
+        axs[0].set_title(f'Mean Reward - 1000 Sim', fontsize=28)
+        axs[1].plot(total_rewards[i], color=COLORS_LIST[i], label=f'epsilon={params_list[i]}')
+        axs[1].set_title(f'Total Reward - 1000 Sim', fontsize=28)
     for ax in axs:
         ax.grid(True)
+        ax.legend()
     fig.tight_layout()
     save_path = os.path.join(RESULT_IMAGE_DIR, 'figure_alter_epsilon.png')
     plt.savefig(save_path)
@@ -173,18 +174,19 @@ def figure_alter_epsilon():
 
 
 def figure_alter_step_size():
-    params_list = [0.01, 0.05, 0.1, 0.2, 0.5]
+    params_list = [0.0001, 0.01, 0.1, 0.2, 0.5]
     bandits = [StockSelectBandit(input_epsilon=0.1, input_step_size=i, input_verbose=False)
                for i in params_list]
     rewards, total_rewards = simulate_bandits(input_bandits=bandits, input_sim_count=1000)
     fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(20, 16))
     for i in range(len(params_list)):
-        axs[0].plot(rewards[i], color=COLORS_LIST[i])
-        axs[0].set_title(f'Mean Reward [step size={params_list[i]}]- 1000 Sim', fontsize=28)
-        axs[1].plot(total_rewards[i], color=COLORS_LIST[i])
-        axs[1].set_title(f'Total Reward [step size={params_list[i]}] - 1000 Sim', fontsize=28)
+        axs[0].plot(rewards[i], color=COLORS_LIST[i], label=f'step size={params_list[i]}')
+        axs[0].set_title(f'Mean Reward - 1000 Sim', fontsize=28)
+        axs[1].plot(total_rewards[i], color=COLORS_LIST[i], label=f'step size={params_list[i]}')
+        axs[1].set_title(f'Total Reward - 1000 Sim', fontsize=28)
     for ax in axs:
         ax.grid(True)
+        ax.legend()
     fig.tight_layout()
     save_path = os.path.join(RESULT_IMAGE_DIR, 'figure_alter_step_size.png')
     plt.savefig(save_path)
