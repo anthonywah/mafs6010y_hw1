@@ -258,4 +258,7 @@ def agg_one_period_cluster(xdf):
     return pd.Series({'cluster_return': reward})
 
 
-
+if __name__ == '__main__':
+    figure_base_case()
+    figure_alter_epsilon()
+    figure_alter_step_size()
