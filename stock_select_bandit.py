@@ -31,6 +31,12 @@ COLORS_LIST = ['blue', 'red', 'purple', 'pink', 'green']
 
 class StockSelectBandit:
     def __init__(self, input_epsilon, input_step_size, input_verbose=False):
+        """ Bandit Algorithm for stock selection
+
+        :param input_epsilon:
+        :param input_step_size:
+        :param input_verbose:
+        """
         self.epsilon = input_epsilon
         self.step_size = input_step_size
         self.init_est = 0.0
@@ -54,6 +60,10 @@ class StockSelectBandit:
             log_msg(msg)
 
     def reset(self):
+        """ Reset variables for another simulation
+
+        :return:
+        """
         self.action_reward_seq = []
         self.cur_reward = 0.0
         self.average_reward = 0.0
@@ -66,6 +76,10 @@ class StockSelectBandit:
         return
 
     def action(self):
+        """ Get an action for this bandit
+
+        :return:
+        """
 
         # Exploration
         if np.random.rand() < self.epsilon:
@@ -82,6 +96,11 @@ class StockSelectBandit:
         return res_choice
 
     def step(self, input_action):
+        """ Take one action and update the estimates for all actions
+
+        :param input_action:
+        :return:
+        """
         self.cur_reward = self.observe_reward(input_round=self.time, input_c=input_action)
         self.time += 1
         self.action_reward_seq.append((input_action, self.cur_reward))
@@ -104,6 +123,14 @@ class StockSelectBandit:
 
 
 def simulate_one_bandit(input_bandit_num, input_bandit, input_max_time, input_sim_count):
+    """ Simulate one bandit only
+
+    :param input_bandit_num:
+    :param input_bandit:
+    :param input_max_time:
+    :param input_sim_count:
+    :return:
+    """
     rewards = np.zeros((input_sim_count, input_max_time))
     total_rewards = np.zeros((input_sim_count, input_max_time))
     start_time = timeit.default_timer()
@@ -121,6 +148,12 @@ def simulate_one_bandit(input_bandit_num, input_bandit, input_max_time, input_si
 
 
 def simulate_bandits(input_bandits, input_sim_count):
+    """ Simulate list of bandits using by multiprocessing
+
+    :param input_bandits:
+    :param input_sim_count:
+    :return:
+    """
     max_time = input_bandits[0].max_time
     rewards = np.zeros((len(input_bandits), input_sim_count, max_time))
     total_rewards = np.zeros((len(input_bandits), input_sim_count, max_time))
@@ -195,6 +228,10 @@ def figure_alter_step_size():
 
 
 def calc_cluster_rewards():
+    """ Get the experimental data and calculate the reward over time in each arm
+
+    :return:
+    """
     log_msg('Calculating clusters and their rewards')
 
     # Get .cache if available
