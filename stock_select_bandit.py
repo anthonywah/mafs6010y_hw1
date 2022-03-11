@@ -195,7 +195,7 @@ def figure_alter_step_size():
 def calc_cluster_rewards():
     log_msg('Calculating clusters and their rewards')
 
-    # Get cache if available
+    # Get .cache if available
     cache_path = os.path.join(CACHE_DIR, 'reward_cache.pkl')
     if os.path.exists(cache_path):
         log_msg(f'Reading from cache')

@@ -11,7 +11,7 @@ import multiprocessing.pool as mp_pool
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-CACHE_DIR = os.path.join(PROJECT_DIR, 'cache')
+CACHE_DIR = os.path.join(PROJECT_DIR, '.cache')
 
 RESULT_IMAGE_DIR = os.path.join(PROJECT_DIR, 'result_graphs')
 
@@ -104,10 +104,10 @@ def get_stock_list_price(input_stock_list, input_start_date, input_end_date):
 def get_experiment_data():
     log_msg(f'Getting experiment data')
 
-    # Get cache if available
+    # Get .cache if available
     cache_path = os.path.join(CACHE_DIR, 'data_cache.pkl')
     if os.path.exists(cache_path):
-        log_msg(f'Reading from cache')
+        log_msg(f'Reading from .cache')
         return read_pkl_helper(cache_path)
 
     # Else Call yfinance
@@ -131,7 +131,7 @@ def get_experiment_data():
     res_dict = {k: v.loc[v['date'] >= '2012-01-01', :].reset_index(drop=True)
                 for k, v in res_dict.items()}
     save_pkl_helper(res_dict, cache_path)
-    log_msg(f'Saved cache')
+    log_msg(f'Saved .cache')
     return res_dict
 
 
