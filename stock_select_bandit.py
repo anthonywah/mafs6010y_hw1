@@ -131,14 +131,14 @@ def simulate_bandits(input_bandits, input_sim_count):
         rewards[i] = i_rewards
         total_rewards[i] = i_total_rewards
     mean_rewards = rewards.mean(axis=1)
-    mean_total_rewards = rewards.mean(axis=1)
+    mean_total_rewards = total_rewards.mean(axis=1)
     return mean_rewards, mean_total_rewards
 
 
 def figure_base_case():
     bandits = [StockSelectBandit(input_epsilon=0.1, input_step_size=0.1, input_verbose=False)]
     rewards, total_rewards = simulate_bandits(input_bandits=bandits, input_sim_count=1000)
-    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(18, 24))
+    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(20, 16))
     axs[0].plot(rewards[0])
     axs[0].set_title('Mean Reward - 1000 Sim', fontsize=28)
     axs[1].plot(total_rewards[0])
@@ -157,7 +157,7 @@ def figure_alter_epsilon():
     bandits = [StockSelectBandit(input_epsilon=i, input_step_size=0.1, input_verbose=False)
                for i in params_list]
     rewards, total_rewards = simulate_bandits(input_bandits=bandits, input_sim_count=1000)
-    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(18, 24))
+    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(20, 16))
     for i in range(len(params_list)):
         axs[0].plot(rewards[i], color=COLORS_LIST[i])
         axs[0].set_title(f'Mean Reward [epsilon={params_list[i]}]- 1000 Sim', fontsize=28)
@@ -177,7 +177,7 @@ def figure_alter_step_size():
     bandits = [StockSelectBandit(input_epsilon=0.1, input_step_size=i, input_verbose=False)
                for i in params_list]
     rewards, total_rewards = simulate_bandits(input_bandits=bandits, input_sim_count=1000)
-    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(18, 24))
+    fig, axs = plt.subplots(nrows=2, ncols=1, figsize=(20, 16))
     for i in range(len(params_list)):
         axs[0].plot(rewards[i], color=COLORS_LIST[i])
         axs[0].set_title(f'Mean Reward [step size={params_list[i]}]- 1000 Sim', fontsize=28)
